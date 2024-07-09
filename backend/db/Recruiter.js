@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt=require("bcryptjs")
 let schema = new mongoose.Schema(
   {
     userId: {
@@ -25,5 +25,19 @@ let schema = new mongoose.Schema(
   },
   { collation: { locale: "en" } }
 );
+
+schema.pre('save',async function(next){
+  if(this.isModified('contactNumber'))
+  {
+    try{
+      this.contactNumber=await bcrypt.hash(this.contactNumber,10);
+    }
+    catch(error)
+    {
+      return next(error);
+    }
+  }
+  next();
+});
 
 module.exports = mongoose.model("RecruiterInfo", schema);

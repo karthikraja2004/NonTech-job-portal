@@ -16,9 +16,14 @@ let schema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["recruiter", "applicant"],
+      enum: ["Recruiter", "applicant"],
       required: true,
     },
+    aadhaarNumber:{
+      type:String,
+      required:true,
+      unique:true
+    }
     
   },
   { collation: { locale: "en" } }

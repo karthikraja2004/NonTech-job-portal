@@ -31,8 +31,7 @@ router.post("/signup", (req, res) => {
           type: data.type,
         });
 
-        user
-          .save()
+        user.save()
           .then(() => {
             const userDetails =
               user.type == "recruiter"
